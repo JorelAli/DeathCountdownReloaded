@@ -78,9 +78,9 @@ public class PlayerManager implements Listener {
 		for (String world : this.plugin.getConfig().getStringList("blacklistedWorlds")) {
 			if (player.getWorld().getName().equals(world)) {
 				dcplayer.stop();
-				if (this.plugin.getConfig().getBoolean("useXpBar")) {
-					player.setExp(dcplayer.getXP());
-				}
+//				if (this.plugin.getConfig().getBoolean("useXpBar")) {
+//					player.setExp(dcplayer.getXP());
+//				}
 				player.sendMessage(this.plugin.prefix + "You are in a blacklisted world. You will not lose time in here.");
 				return;
 			}
@@ -89,8 +89,8 @@ public class PlayerManager implements Listener {
 		//Hold it.... this would then ... start ..... wait....
 		//Waiiiiiiitttt........ put a check in here for if worlds are synchronised time
 		dcplayer.start();
-		if (this.plugin.getConfig().getBoolean("useXpBar")) {
-			dcplayer.setXP((int) player.getExp());
-		}
+//		if (this.plugin.getConfig().getBoolean("useXpBar")) {
+//			dcplayer.setXP((int) player.getExp());
+//		}
 	}
 }

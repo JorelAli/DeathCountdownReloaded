@@ -25,7 +25,6 @@ import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -141,14 +140,9 @@ public class Main extends JavaPlugin {
 		getServer().addRecipe(recipeitem);
 	}
 
-	
-
-	public void unban(OfflinePlayer player) {
-		this.sqlite.execute("DELETE FROM DeathCountdownData WHERE playername='" + player.getName() + "';");
-	}
 
 	@Deprecated
-	protected void addFakeData(int amount) {
+	protected void addFakeData(int amount) throws SQLException {
 		SecureRandom r = new SecureRandom();
 		for (int i = 0; i < amount; i++) {
 			Random random = new Random();
@@ -160,60 +154,12 @@ public class Main extends JavaPlugin {
 	}
 
 	@Deprecated
-	protected void addFakeDataHR(int amount) {
+	protected void addFakeDataHR(int amount) throws SQLException {
 		for (int i = 1; i < amount + 1; i++) {
 			String name = "Player" + i;
 			this.sqlite
 					.execute("INSERT INTO DeathCountdownData(playername, time) VALUES('" + name + "', '" + i + "');");
 		}
-	}
-
-	public void addBannedWorld(Player player, String worldname) {
-		String currentbans = null;
-		try {
-			currentbans = getBannedWorlds(player);
-		} catch (Exception e1) {
-			currentbans = "";
-		}
-		String newWorlds = currentbans + worldname + "-";
-
-		this.sqlite.execute("UPDATE DeathCountdownData SET bannedFromWorlds='" + newWorlds + "' WHERE playername='"
-				+ player.getName() + "';");
-	}
-
-	public String getBannedWorlds(Player player) {
-		ResultSet result = this.sqlite
-				.executeQuery("SELECT bannedFromWorlds FROM DeathCountdownData WHERE playername='" + player.getName()
-						+ "';");
-		String r;
-		try {
-			r = this.sqlite.resultToString(result, "bannedFromWorlds");
-		} catch (Exception e1) {
-			r = "";
-		}
-		return r;
-	}
-
-	public void removeBannedWorld(Player player, String worldname) {
-		String worlds = getBannedWorlds(player);
-		String[] w = worlds.split("-");
-		String[] arrayOfString1;
-		int j = (arrayOfString1 = w).length;
-		for (int i = 0; i < j; i++) {
-			String s = arrayOfString1[i];
-			if (s.equalsIgnoreCase("worldname")) {
-				String s1 = worlds.replaceAll("s", "");
-				String s2 = s1.replaceAll("--", "-");
-				this.sqlite.execute("UPDATE DeathCountdownData SET bannedFromWorlds='" + s2 + "' WHERE playername='"
-						+ player.getName() + "';");
-				return;
-			}
-		}
-	}
-
-	public void clearBannedWorlds(Player player) {
-		this.sqlite.execute("UPDATE DeathCountdownData SET bannedFromWorlds='' WHERE playername='" + player.getName()
-				+ "';");
 	}
 
 	@Deprecated
