@@ -1,7 +1,6 @@
 package io.github.skepter.dcreloaded;
 
 import java.io.File;
-import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 
 public class SQLite {
 	private String DatabaseURL;
-	private Connection Connection;
+	private Connection connection;
 
 	public SQLite(File DatabaseFile) {
 		if (!DatabaseFile.getParentFile().exists()) {
@@ -27,60 +26,41 @@ public class SQLite {
 		}
 	}
 
-	public void open() {
-		try {
-			this.Connection = DriverManager.getConnection(this.DatabaseURL);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public void open() throws SQLException {
+		this.connection = DriverManager.getConnection(this.DatabaseURL);
 	}
 
-	public void close() {
-		if (this.Connection != null) {
-			try {
-				this.Connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+	public void close() throws SQLException {
+		if (this.connection != null)
+			this.connection.close();
 	}
 
-	public void execute(String Query) {
-		try {
-			this.Connection.createStatement().execute(Query);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public void execute(String Query) throws SQLException {
+		this.connection.createStatement().execute(Query);
 	}
 
 	public ResultSet executeQuery(String Query) {
 		Statement Statement = null;
 		try {
-			Statement = this.Connection.createStatement();
+			Statement = this.connection.createStatement();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		ResultSet Result = null;
 		try {
 			return Statement.executeQuery(Query);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			try {
-				Statement.close();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+		}
+		try {
+			Statement.close();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		}
 		return null;
 	}
 
-	public PreparedStatement prepareStatement(String Query) {
-		try {
-			return this.Connection.prepareStatement(Query);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public PreparedStatement prepareStatement(String Query) throws SQLException {
+		return this.connection.prepareStatement(Query);
 	}
 
 	public ArrayList<String> resultToArray(ResultSet result, String data) {

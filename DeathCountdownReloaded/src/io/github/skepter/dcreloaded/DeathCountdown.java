@@ -15,14 +15,12 @@ import io.github.skepter.dcreloaded.listeners.TransferTimeListener;
 import io.github.skepter.dcreloaded.listeners.VotifierListener;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -52,7 +50,7 @@ public class DeathCountdown extends JavaPlugin {
 	}
 
 	public void onEnable() {
-		updateAndMetrics();
+		//updateAndMetrics();
 		this.log.info("[DeathCountdown] Connecting to database...");
 		File file = new File(getDataFolder(), "deathcountdown.db");
 		this.sqlite = new SQLite(file);
@@ -145,9 +143,7 @@ public class DeathCountdown extends JavaPlugin {
 	}*/
 
 	public void restartScheduler() {
-		Iterator<Player> it = Arrays.asList(Bukkit.getServer().getOnlinePlayers()).iterator();
-		while (it.hasNext()) {
-			Player player = (Player) it.next();
+		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
 			start(this, player);
 		}
 	}
@@ -291,7 +287,6 @@ public class DeathCountdown extends JavaPlugin {
 		try {
 			r = this.sqlite.resultToString(result, "bannedFromWorlds");
 		} catch (Exception e1) {
-			String r;
 			r = "";
 		}
 		return r;
@@ -333,7 +328,7 @@ public class DeathCountdown extends JavaPlugin {
 	}
 
 	public ArrayList<String> resultToArray(ResultSet result, String data) {
-		ArrayList<String> arr = new ArrayList();
+		ArrayList<String> arr = new ArrayList<String>();
 		try {
 			while (result.next()) {
 				arr.add(result.getString(data));

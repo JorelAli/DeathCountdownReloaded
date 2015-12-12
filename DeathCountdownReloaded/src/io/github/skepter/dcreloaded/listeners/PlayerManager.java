@@ -45,7 +45,7 @@ public class PlayerManager implements Listener {
 					return;
 				}
 			}
-			int time = this.plugin.getTime(player);
+			time = this.plugin.getTime(player);
 			int TimeLoss = time - this.plugin.getConfig().getInt("timeLost");
 			this.plugin.setTime(player, TimeLoss);
 		}
@@ -83,7 +83,8 @@ public class PlayerManager implements Listener {
 	@EventHandler
 	public void onWorldChange(PlayerChangedWorldEvent event) {
 		Player player = event.getPlayer();
-		Iterator localIterator = this.plugin.getConfig().getStringList("blacklistedWorlds").iterator();
+		//Ugh, an iterator? Why not a for loop for crying out loud!
+		Iterator<String> localIterator = this.plugin.getConfig().getStringList("blacklistedWorlds").iterator();
 		if (localIterator.hasNext()) {
 			String str = (String) localIterator.next();
 			if (player.getWorld().getName().equals(str)) {

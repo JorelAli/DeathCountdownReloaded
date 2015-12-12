@@ -2,11 +2,6 @@ package io.github.skepter.dcreloaded.cmds;
 
 import io.github.skepter.dcreloaded.DeathCountdown;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,12 +13,14 @@ public class DCTopCommand implements CommandExecutor {
 		this.plugin = plugin;
 	}
 
+	/* Replace with AA's Paginator */
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (command.getName().equalsIgnoreCase("dctop")) {
 			if ((args.length == 0) || (args.length > 1)) {
 				sender.sendMessage(this.plugin.prefix + "Use /DCTop <page number>");
 				return true;
 			}
+			/*
 			HashMap<Integer, List<String>> pages = new HashMap();
 			ChatColor a = ChatColor.GREEN;
 			ChatColor g = ChatColor.GRAY;
@@ -66,7 +63,7 @@ public class DCTopCommand implements CommandExecutor {
 			for (String s : (List) pages.get(Integer.valueOf(arg))) {
 				sender.sendMessage(s);
 			}
-			return true;
+			return true;*/
 		}
 		return false;
 	}

@@ -45,8 +45,8 @@ public final class TimeOutEvent extends Event implements Cancellable {
 				return;
 			}
 		}
+		//What is this crap code though?
 		World w;
-		Player p;
 		if (plugin.getConfig().getBoolean("perWorldBanning")) {
 			plugin.addBannedWorld(player, player.getWorld().getName());
 			List<World> worlds = Bukkit.getWorlds();
@@ -57,10 +57,7 @@ public final class TimeOutEvent extends Event implements Cancellable {
 						Bukkit.broadcastMessage(plugin.prefix + player.getName() + " timed out from " + worldname);
 					}
 					if (plugin.getConfig().getBoolean("banSound")) {
-						Player[] arrayOfPlayer;
-						int m = (arrayOfPlayer = Bukkit.getOnlinePlayers()).length;
-						for (int k = 0; k < m; k++) {
-							p = arrayOfPlayer[k];
+						for(Player p : Bukkit.getOnlinePlayers()) {
 							p.playSound(p.getLocation(), Sound.WITHER_SPAWN, 100.0F, 2.0F);
 						}
 					}
@@ -73,9 +70,7 @@ public final class TimeOutEvent extends Event implements Cancellable {
 		player.kickPlayer(plugin.prefix + "Sorry " + player.getName() + ", you timed out!");
 		player.setBanned(true);
 		if (plugin.getConfig().getBoolean("banSound")) {
-			int j = (p = Bukkit.getOnlinePlayers()).length;
-			for (int i = 0; i < j; i++) {
-				Player p = p[i];
+			for(Player p : Bukkit.getOnlinePlayers()) {
 				p.playSound(p.getLocation(), Sound.WITHER_SPAWN, 100.0F, 2.0F);
 			}
 		}

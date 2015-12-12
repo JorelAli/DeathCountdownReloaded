@@ -77,6 +77,7 @@ public class ChatListener implements Listener {
 				}
 				player.setDisplayName(p + "[" + g + "Great" + p + "] " + r + currentname);
 			}
+			//What does this code even do?
 		} else if ((ranksEnabled = 1) != 0) {
 			List<String> ranks = this.plugin.getConfig().getStringList("Ranks");
 			ChatColor.translateAlternateColorCodes('&', "");
