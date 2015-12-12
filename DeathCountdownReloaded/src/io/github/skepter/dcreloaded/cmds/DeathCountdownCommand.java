@@ -1,6 +1,7 @@
 package io.github.skepter.dcreloaded.cmds;
 
 import io.github.skepter.dcreloaded.Main;
+import io.github.skepter.dcreloaded.api.DCPlayer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -22,13 +23,11 @@ public class DeathCountdownCommand implements CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if ((command.getName().equalsIgnoreCase("dc"))
-				&& ((sender.hasPermission(this.plugin.command)) || (sender.isOp())
-						|| ((sender instanceof ConsoleCommandSender)) || ((sender instanceof BlockCommandSender)))) {
+				&& ((sender.hasPermission(this.plugin.command)) || (sender.isOp()) || ((sender instanceof ConsoleCommandSender)) || ((sender instanceof BlockCommandSender)))) {
 			ChatColor a = ChatColor.GREEN;
 			ChatColor g = ChatColor.GRAY;
 			if (args.length == 0) {
-				sender.sendMessage(this.plugin.prefix
-						+ "Welcome to the DeathCountdown control panel. Here's a list of commands:");
+				sender.sendMessage(this.plugin.prefix + "Welcome to the DeathCountdown control panel. Here's a list of commands:");
 				sender.sendMessage(a + "/dc " + g + "Displays this help page");
 				sender.sendMessage(a + "/dc give <player> <time> " + g + "Give time to a player");
 				sender.sendMessage(a + "/dc take <player> <time> " + g + "Take time from a player");
@@ -37,8 +36,7 @@ public class DeathCountdownCommand implements CommandExecutor {
 				sender.sendMessage("");
 				sender.sendMessage(a + "/dc setadmin <player> true/false " + g + "Set's a player's state as Admin");
 				sender.sendMessage(a + "/dc checkadmin <player> " + g + "Check's if a player is an Admin");
-				sender.sendMessage(a + "/dc setrevivable <player> true/false " + g
-						+ "Set's a player's state as revivable");
+				sender.sendMessage(a + "/dc setrevivable <player> true/false " + g + "Set's a player's state as revivable");
 				sender.sendMessage(a + "/dc checkrevivable <player> " + g + "Check's if a player is revivable");
 				sender.sendMessage("");
 				sender.sendMessage(a + "/dc revive <player> " + g + "Revives a banned player");
@@ -49,103 +47,63 @@ public class DeathCountdownCommand implements CommandExecutor {
 				sender.sendMessage(a + "/dc reload " + g + "Reloads plugin");
 				sender.sendMessage(a + "/dc listperms " + g + "Lists the permissions from this plugin");
 			} else {
-				if (args[0].equalsIgnoreCase("give")) {
-					Player target = null;
-					try {
-						target = Bukkit.getPlayerExact(args[1]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
-						return true;
-					}
-					int addedtime = 0;
-					try {
-						addedtime = Integer.parseInt(args[2]);
-					} catch (NumberFormatException e) {
-						sender.sendMessage(this.plugin.prefix + "That is not a number!");
-						return true;
-					}
-					int time = 0;
-					try {
-						time = this.plugin.getTime(target);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
-						return true;
-					}
-					int AddTime = time + addedtime;
-					this.plugin.setTime(target, AddTime);
-					sender.sendMessage(this.plugin.prefix + "You gave " + a + addedtime + g + " to " + target.getName());
-					target.sendMessage(this.plugin.prefix + sender.getName() + " gave you " + a + addedtime + g
-							+ " time");
+
+				/* Get the target player */
+				Player target = null;
+				try {
+					target = Bukkit.getPlayerExact(args[1]);
+				} catch (Exception e) {
+					sender.sendMessage(this.plugin.prefix + "Could not find player!");
 					return true;
 				}
-				if (args[0].equalsIgnoreCase("take")) {
-					Player target = null;
-					try {
-						target = Bukkit.getPlayerExact(args[1]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
+				DCPlayer dcplayer = new DCPlayer(target);
+				int time = dcplayer.getTime();
+
+				switch (args[0].toLowerCase()) {
+					case "give":
+						int amountToGive = 0;
+						try {
+							amountToGive = Integer.parseInt(args[2]);
+						} catch (NumberFormatException e) {
+							sender.sendMessage(this.plugin.prefix + "That is not a number!");
+							return true;
+						}
+						int newTime = time + amountToGive;
+						dcplayer.setTime(newTime);
+						sender.sendMessage(this.plugin.prefix + "You gave " + a + amountToGive + g + " to " + target.getName());
+						target.sendMessage(this.plugin.prefix + sender.getName() + " gave you " + a + amountToGive + g + " time");
 						return true;
-					}
-					int minusedtime = 0;
-					try {
-						minusedtime = Integer.parseInt(args[2]);
-					} catch (NumberFormatException e) {
-						sender.sendMessage(this.plugin.prefix + "That is not a number!");
+					case "take":
+						int amountToTake = 0;
+						try {
+							amountToTake = Integer.parseInt(args[2]);
+						} catch (NumberFormatException e) {
+							sender.sendMessage(this.plugin.prefix + "That is not a number!");
+							return true;
+						}
+
+						int newTime1 = time - amountToTake;
+						dcplayer.setTime(newTime1);
+						sender.sendMessage(this.plugin.prefix + "You took " + a + amountToTake + g + " from " + target.getName());
+						target.sendMessage(this.plugin.prefix + sender.getName() + " took " + a + amountToTake + g + " time from you");
 						return true;
-					}
-					int time = 0;
-					try {
-						time = this.plugin.getTime(target);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
+					case "set":
+						int amountToSet = 0;
+						try {
+							amountToSet = Integer.parseInt(args[2]);
+						} catch (NumberFormatException e) {
+							sender.sendMessage(this.plugin.prefix + "That is not a number!");
+							return true;
+						}
+
+						int newTime2 = amountToSet;
+						dcplayer.setTime(newTime2);
+						sender.sendMessage(this.plugin.prefix + target.getName() + "'s time has been set to: " + amountToSet);
+						target.sendMessage(this.plugin.prefix + sender.getName() + " set your time to " + a + amountToSet);
 						return true;
-					}
-					int MinusTime = time - minusedtime;
-					this.plugin.setTime(target, MinusTime);
-					sender.sendMessage(this.plugin.prefix + "You took " + a + minusedtime + g + " from "
-							+ target.getName());
-					target.sendMessage(this.plugin.prefix + sender.getName() + " took " + a + minusedtime + g
-							+ " time from you");
-					return true;
-				}
-				if (args[0].equalsIgnoreCase("set")) {
-					Player target = null;
-					try {
-						target = Bukkit.getPlayerExact(args[1]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
+					case "check":
+						sender.sendMessage(this.plugin.prefix + target.getName() + "'s time is: " + a + time);
 						return true;
-					}
-					int inputtedtime = 0;
-					try {
-						inputtedtime = Integer.parseInt(args[2]);
-					} catch (NumberFormatException e) {
-						sender.sendMessage(this.plugin.prefix + "That is not a number!");
-						return true;
-					}
-					int SetTime = inputtedtime;
-					this.plugin.setTime(target, SetTime);
-					sender.sendMessage(this.plugin.prefix + target.getName() + "'s time has been set to: " + SetTime);
-					target.sendMessage(this.plugin.prefix + sender.getName() + " set your time to " + a + SetTime);
-					return true;
-				}
-				if (args[0].equalsIgnoreCase("check")) {
-					Player target = null;
-					try {
-						target = Bukkit.getPlayerExact(args[1]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
-						return true;
-					}
-					int time = 0;
-					try {
-						time = this.plugin.getTime(target);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
-						return true;
-					}
-					sender.sendMessage(this.plugin.prefix + target.getName() + "'s time is: " + a + time);
-					return true;
 				}
 				if (args[0].equalsIgnoreCase("setadmin")) {
 					Player target = null;
@@ -263,8 +221,7 @@ public class DeathCountdownCommand implements CommandExecutor {
 						return true;
 					}
 					this.plugin.removeBannedWorld(target, world.getName());
-					sender.sendMessage(this.plugin.prefix + "Successfully unbanned " + target.getName()
-							+ " from the world " + world.getName());
+					sender.sendMessage(this.plugin.prefix + "Successfully unbanned " + target.getName() + " from the world " + world.getName());
 					return true;
 				}
 				if (args[0].equalsIgnoreCase("checkbans")) {

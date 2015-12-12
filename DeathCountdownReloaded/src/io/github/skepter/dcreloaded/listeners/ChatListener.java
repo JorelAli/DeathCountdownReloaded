@@ -3,8 +3,6 @@ package io.github.skepter.dcreloaded.listeners;
 import io.github.skepter.dcreloaded.Main;
 import io.github.skepter.dcreloaded.api.DCPlayer;
 
-import java.util.List;
-
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

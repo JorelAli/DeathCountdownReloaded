@@ -1,6 +1,7 @@
 package io.github.skepter.dcreloaded.listeners;
 
 import io.github.skepter.dcreloaded.Main;
+import io.github.skepter.dcreloaded.api.DCPlayer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -28,8 +29,9 @@ public class VotifierListener implements Listener {
 				return;
 			}
 		}
-		int time = this.plugin.getTime(player);
-		this.plugin.setTime(player, time + this.plugin.getConfig().getInt("voteAmount"));
+		DCPlayer dcplayer = new DCPlayer(player);
+		int time = dcplayer.getTime();
+		dcplayer.setTime(time + this.plugin.getConfig().getInt("voteAmount"));
 		Bukkit.getServer().broadcastMessage(
 				this.plugin.prefix + ChatColor.GREEN + username + ChatColor.GRAY
 						+ " Voted for the server and got more time!");
