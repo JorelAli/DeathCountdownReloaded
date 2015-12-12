@@ -5,7 +5,6 @@ import io.github.skepter.dcreloaded.cmds.DCTopCommand;
 import io.github.skepter.dcreloaded.cmds.DeathCountdownCommand;
 import io.github.skepter.dcreloaded.cmds.TimeCommand;
 import io.github.skepter.dcreloaded.listeners.ChatListener;
-import io.github.skepter.dcreloaded.listeners.EnchantListener;
 import io.github.skepter.dcreloaded.listeners.LoginManager;
 import io.github.skepter.dcreloaded.listeners.PlayerManager;
 import io.github.skepter.dcreloaded.listeners.SignListener;
@@ -69,7 +68,6 @@ public class Main extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new PlayerManager(this), this);
 		getServer().getPluginManager().registerEvents(new SignListener(this), this);
 		getServer().getPluginManager().registerEvents(new SignUseListener(this), this);
-		getServer().getPluginManager().registerEvents(new EnchantListener(this), this);
 		getServer().getPluginManager().registerEvents(new ChatListener(this), this);
 		getServer().getPluginManager().registerEvents(new TransferTimeListener(this), this);
 		if (getConfig().getBoolean("votifierSupport")) {

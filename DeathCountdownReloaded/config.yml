@@ -23,11 +23,10 @@ ConfigVersion: 2.0
 # Main Configuration - The main stuff you need to have #
 ########################################################
 
-#Amount of time you start with
-startTime: 2500
+#Amount of time you start with (Default is 600 = 10 mins)
+startTime: 600
 
 #Delay between each time loss (20 = 1 second)
-#20 is 1 second by default
 delay: 20
 
 #Amount of time you lose if you die in game
@@ -44,12 +43,6 @@ transferSpeed: 10
 
 #Lore to be added to the clock
 clockLore: 'Transfers at 10 time per use'
-
-#Extra Price added to Enchantment tables
-#Since players have more experience than usual, 
-# increasing the Enchantment price is needed
-#Change to 1 to disable
-enchantmentMultiplier: 10
 
 ####################################################
 # Worlds - Controls all aspects of multiple worlds #
@@ -74,6 +67,9 @@ blacklistedWorlds:
 
 #Play sound when player times out?
 playSound: true
+
+#Broadcast a global message when a player times out?
+doBroadcast: true
 
 ###################################
 # Ranks - Allows ranks to be used #
