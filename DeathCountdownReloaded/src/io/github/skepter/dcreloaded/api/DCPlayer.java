@@ -19,12 +19,16 @@ public class DCPlayer {
 		this.instance = Main.getInstance();
 	}
 
+	/** Stops a player's countdown */
 	public void stop() {
 		Bukkit.getScheduler().cancelTask(getTaskID());
 	}
 	
+	/** Starts a player's countdown
+	 * <br> Will also time out players if their current time is <= 0
+	 * <br> Activates the time change event to update their time */
 	public void start() {
-		if (isAdmin()) {
+		if (isAdmin() || isInBlacklistedWorld()) {
 			return;
 		}
 		/* Begins the countdown */
@@ -33,25 +37,23 @@ public class DCPlayer {
 				int time = getTime();
 				
 				/* Times the player out if they run out of time */
-				if ((time == 0) || (time < 0)) {
+				if (time <= 0) {
 					TimeOutEvent event = new TimeOutEvent(instance, player);
 					Bukkit.getServer().getPluginManager().callEvent(event);
-					return;
+					return; //Don't return... stop the task?
 				}
 				
 				/* TimeChange event (Updates the player's time) */
-				int TimeLoss = time - instance.getConfig().getInt("amount");
-				TimeChangeEvent event = new TimeChangeEvent(instance, player, time, TimeLoss);
+				int timeLoss = time - instance.getConfig().getInt("amount");
+				TimeChangeEvent event = new TimeChangeEvent(instance, player, time, timeLoss);
 				Bukkit.getServer().getPluginManager().callEvent(event);
 				
 				/* Does some stuff with the xp bar.... should we not just use that packetty thing
-				 * which has text above the xpbar instead?? */
+				 * which has text above the xpbar instead?? 
+				 * 
+				 * Now removing support for xpbar.*/
 				if (instance.getConfig().getBoolean("useXpBar")) {
-					for (String str : instance.getConfig().getStringList("blacklistedWorlds")) {
-						if (player.getWorld().getName().equals(str)) {
-							return;
-						}
-					}
+					
 					if (time > 32767) {
 						player.setLevel(32767);
 					} else {
@@ -79,6 +81,7 @@ public class DCPlayer {
 		return Integer.valueOf(r).intValue();
 	}
 
+	@Deprecated
 	public int getXP() {
 		ResultSet result = instance.sqlite.executeQuery("SELECT oldXP FROM DeathCountdownData WHERE playername='" + player.getName() + "';");
 		String r = instance.sqlite.resultToString(result, "oldXP");
@@ -135,7 +138,8 @@ public class DCPlayer {
 		}
 	}
 
-	public void setXP(Player player, int xp) {
+	@Deprecated
+	public void setXP(int xp) {
 		try {
 			instance.sqlite.execute("UPDATE DeathCountdownData SET oldXP='" + xp + "' WHERE playername='" + player.getName() + "';");
 		} catch (SQLException e) {
@@ -150,6 +154,15 @@ public class DCPlayer {
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean isInBlacklistedWorld() {
+		for (String str : instance.getConfig().getStringList("blacklistedWorlds")) {
+			if (player.getWorld().getName().equals(str)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

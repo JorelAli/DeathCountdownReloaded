@@ -1,7 +1,6 @@
 package io.github.skepter.dcreloaded;
 
-import io.github.skepter.dcreloaded.api.TimeChangeEvent;
-import io.github.skepter.dcreloaded.api.TimeOutEvent;
+import io.github.skepter.dcreloaded.api.DCPlayer;
 import io.github.skepter.dcreloaded.cmds.DCTopCommand;
 import io.github.skepter.dcreloaded.cmds.DeathCountdownCommand;
 import io.github.skepter.dcreloaded.cmds.TimeCommand;
@@ -121,7 +120,7 @@ public class Main extends JavaPlugin {
 
 	public void restartScheduler() {
 		for(Player player : Bukkit.getServer().getOnlinePlayers()) {
-			start(this, player);
+			new DCPlayer(player).start();
 		}
 	}
 
