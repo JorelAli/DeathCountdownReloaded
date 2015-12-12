@@ -35,28 +35,36 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class DeathCountdown extends JavaPlugin {
+public class Main extends JavaPlugin {
 	public String command = "DeathCountdown.Command";
 	public String sign = "DeathCountdown.Sign";
-	public Logger log = Logger.getLogger("Minecraft");
+	public Logger log;
 	public SQLite sqlite;
 	PluginDescriptionFile description = getDescription();
-	private int time = 0;
-	private int taskID;
 	public String prefix = "�a[DeathCountdown]�7 ";
 
-	public DeathCountdown getPlugin() {
+	public Main getPlugin() {
 		return this;
 	}
 
 	public void onEnable() {
+		this.log = Bukkit.getLogger();
 		//updateAndMetrics();
 		this.log.info("[DeathCountdown] Connecting to database...");
 		File file = new File(getDataFolder(), "deathcountdown.db");
 		this.sqlite = new SQLite(file);
-		this.sqlite.open();
-		this.sqlite
-				.execute("CREATE TABLE IF NOT EXISTS DeathCountdownData (playername VARCHAR(16), time INTEGER(15), canRevive BOOLEAN, isAdmin BOOLEAN, taskID INTEGER(3), oldXP INTEGER(15));");
+		try {
+			this.sqlite.open();
+		} catch (SQLException e1) {
+			log.info("Could not access database, shutting down");
+			//Shut down plugin
+		}
+		try {
+			this.sqlite
+					.execute("CREATE TABLE IF NOT EXISTS DeathCountdownData (playername VARCHAR(16), time INTEGER(15), canRevive BOOLEAN, isAdmin BOOLEAN, taskID INTEGER(3), oldXP INTEGER(15));");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		this.log.info("[DeathCountdown] Database connected!");
 		getServer().getPluginManager().registerEvents(new LoginManager(this), this);
@@ -79,47 +87,16 @@ public class DeathCountdown extends JavaPlugin {
 
 	public void onDisable() {
 		saveConfig();
-		this.sqlite.close();
+		try {
+			this.sqlite.close();
+		} catch (SQLException e) {
+			log.info("There was an error closing the database");
+		}
 		getServer().getScheduler().cancelTasks(this);
 	}
-
-	public void start(final DeathCountdown plugin, final Player player) {
-		if (getAdmin(player)) {
-			return;
-		}
-		this.taskID = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-			public void run() {
-				DeathCountdown.this.time = DeathCountdown.this.getTime(player);
-				if ((DeathCountdown.this.time == 0) || (DeathCountdown.this.time < 0)) {
-					TimeOutEvent event = new TimeOutEvent(plugin, player);
-					Bukkit.getServer().getPluginManager().callEvent(event);
-					return;
-				}
-				int TimeLoss = DeathCountdown.this.time - DeathCountdown.this.getConfig().getInt("amount");
-				TimeChangeEvent event = new TimeChangeEvent(plugin, player, DeathCountdown.this.time, TimeLoss);
-				Bukkit.getServer().getPluginManager().callEvent(event);
-				event.setTime(player, TimeLoss);
-				if (DeathCountdown.this.getConfig().getBoolean("useXpBar")) {
-					for (String str : DeathCountdown.this.getConfig().getStringList("blacklistedWorlds")) {
-						if (player.getWorld().getName().equals(str)) {
-							return;
-						}
-					}
-					if (DeathCountdown.this.getTime(player) > 32767) {
-						player.setLevel(32767);
-					} else {
-						player.setLevel(DeathCountdown.this.getTime(player));
-					}
-					return;
-				}
-			}
-		}, 0L, getConfig().getInt("delay"));
-		setTaskID(player, this.taskID);
-	}
-
-	public void cancelTask(Player player) {
-		int task = getTaskID(player);
-		Bukkit.getScheduler().cancelTask(task);
+	
+	public static Main getInstance() {
+		return JavaPlugin.getPlugin(Main.class);
 	}
 
 	/*
@@ -165,81 +142,7 @@ public class DeathCountdown extends JavaPlugin {
 		getServer().addRecipe(recipeitem);
 	}
 
-	public void create(Player player, int startTime) {
-		this.sqlite
-				.execute("INSERT INTO DeathCountdownData(playername, time, canRevive, isAdmin, taskID, oldXP, bannedFromWorlds) VALUES('"
-						+ player.getName() + "', '" + startTime + "', 'false', 'false', '0', '0', '');");
-	}
-
-	public int getTime(Player player) {
-		ResultSet result = this.sqlite.executeQuery("SELECT time FROM DeathCountdownData WHERE playername='"
-				+ player.getName() + "';");
-		String r = this.sqlite.resultToString(result, "time");
-
-		return Integer.valueOf(r).intValue();
-	}
-
-	public int getXP(Player player) {
-		ResultSet result = this.sqlite.executeQuery("SELECT oldXP FROM DeathCountdownData WHERE playername='"
-				+ player.getName() + "';");
-		String r = this.sqlite.resultToString(result, "oldXP");
-		return Integer.valueOf(r).intValue();
-	}
-
-	public boolean getAdmin(Player player) {
-		ResultSet result = this.sqlite.executeQuery("SELECT isAdmin FROM DeathCountdownData WHERE playername='"
-				+ player.getName() + "';");
-		String r = this.sqlite.resultToString(result, "isAdmin");
-		return Boolean.parseBoolean(r);
-	}
-
-	public boolean getRevive(Player player) {
-		ResultSet result = this.sqlite.executeQuery("SELECT canRevive FROM DeathCountdownData WHERE playername='"
-				+ player.getName() + "';");
-		String r = this.sqlite.resultToString(result, "canRevive");
-		return Boolean.parseBoolean(r);
-	}
-
-	public void setTime(Player player, int time) {
-		this.sqlite.execute("UPDATE DeathCountdownData SET time='" + time + "' WHERE playername='" + player.getName()
-				+ "';");
-	}
-
-	public void setRevive(Player player, boolean canRevive) {
-		this.sqlite.execute("UPDATE DeathCountdownData SET canRevive='" + canRevive + "' WHERE playername='"
-				+ player.getName() + "';");
-	}
-
-	public void setAdmin(Player player, boolean isAdmin) {
-		this.sqlite.execute("UPDATE DeathCountdownData SET isAdmin='" + isAdmin + "' WHERE playername='"
-				+ player.getName() + "';");
-	}
-
-	public int getTaskID(Player player) {
-		ResultSet result = this.sqlite.executeQuery("SELECT taskID FROM DeathCountdownData WHERE playername='"
-				+ player.getName() + "';");
-		String r = this.sqlite.resultToString(result, "taskID");
-		return Integer.parseInt(r);
-	}
-
-	public void setTaskID(Player player, int taskID) {
-		this.sqlite.execute("UPDATE DeathCountdownData SET taskID='" + taskID + "' WHERE playername='"
-				+ player.getName() + "';");
-	}
-
-	public void setXP(Player player, int xp) {
-		this.sqlite.execute("UPDATE DeathCountdownData SET oldXP='" + xp + "' WHERE playername='" + player.getName()
-				+ "';");
-	}
-
-	public boolean check(Player player) {
-		ResultSet result = this.sqlite.executeQuery("SELECT playername FROM DeathCountdownData;");
-		ArrayList<String> r = this.sqlite.resultToArray(result, "playername");
-		if ((r == null) || (!r.toString().contains(player.getName()))) {
-			return false;
-		}
-		return true;
-	}
+	
 
 	public void unban(OfflinePlayer player) {
 		this.sqlite.execute("DELETE FROM DeathCountdownData WHERE playername='" + player.getName() + "';");

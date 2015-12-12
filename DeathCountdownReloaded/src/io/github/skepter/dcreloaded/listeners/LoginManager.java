@@ -1,6 +1,6 @@
 package io.github.skepter.dcreloaded.listeners;
 
-import io.github.skepter.dcreloaded.DeathCountdown;
+import io.github.skepter.dcreloaded.Main;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -12,9 +12,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class LoginManager implements Listener {
-	DeathCountdown plugin;
+	Main plugin;
 
-	public LoginManager(DeathCountdown plugin) {
+	public LoginManager(Main plugin) {
 		this.plugin = plugin;
 	}
 

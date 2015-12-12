@@ -1,6 +1,6 @@
 package io.github.skepter.dcreloaded.listeners;
 
-import io.github.skepter.dcreloaded.DeathCountdown;
+import io.github.skepter.dcreloaded.Main;
 
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -9,9 +9,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 public class TransferTimeListener implements Listener {
-	DeathCountdown plugin;
+	Main plugin;
 
-	public TransferTimeListener(DeathCountdown plugin) {
+	public TransferTimeListener(Main plugin) {
 		this.plugin = plugin;
 	}
 

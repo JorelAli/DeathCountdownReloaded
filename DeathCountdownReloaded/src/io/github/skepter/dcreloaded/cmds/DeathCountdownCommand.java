@@ -1,6 +1,6 @@
 package io.github.skepter.dcreloaded.cmds;
 
-import io.github.skepter.dcreloaded.DeathCountdown;
+import io.github.skepter.dcreloaded.Main;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,9 +14,9 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 public class DeathCountdownCommand implements CommandExecutor {
-	DeathCountdown plugin;
+	Main plugin;
 
-	public DeathCountdownCommand(DeathCountdown plugin) {
+	public DeathCountdownCommand(Main plugin) {
 		this.plugin = plugin;
 	}
 

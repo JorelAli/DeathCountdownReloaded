@@ -1,6 +1,6 @@
 package io.github.skepter.dcreloaded.listeners;
 
-import io.github.skepter.dcreloaded.DeathCountdown;
+import io.github.skepter.dcreloaded.Main;
 
 import java.util.Iterator;
 
@@ -14,9 +14,9 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 
 public class PlayerManager implements Listener {
-	DeathCountdown plugin;
+	Main plugin;
 
-	public PlayerManager(DeathCountdown plugin) {
+	public PlayerManager(Main plugin) {
 		this.plugin = plugin;
 	}
 

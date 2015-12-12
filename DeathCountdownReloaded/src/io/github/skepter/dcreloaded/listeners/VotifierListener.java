@@ -1,6 +1,6 @@
 package io.github.skepter.dcreloaded.listeners;
 
-import io.github.skepter.dcreloaded.DeathCountdown;
+import io.github.skepter.dcreloaded.Main;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -12,9 +12,9 @@ import com.vexsoftware.votifier.model.Vote;
 import com.vexsoftware.votifier.model.VotifierEvent;
 
 public class VotifierListener implements Listener {
-	DeathCountdown plugin;
+	Main plugin;
 
-	public VotifierListener(DeathCountdown plugin) {
+	public VotifierListener(Main plugin) {
 		this.plugin = plugin;
 	}
 

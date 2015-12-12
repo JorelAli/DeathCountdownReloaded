@@ -1,15 +1,15 @@
 package io.github.skepter.dcreloaded.cmds;
 
-import io.github.skepter.dcreloaded.DeathCountdown;
+import io.github.skepter.dcreloaded.Main;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class DCTopCommand implements CommandExecutor {
-	DeathCountdown plugin;
+	Main plugin;
 
-	public DCTopCommand(DeathCountdown plugin) {
+	public DCTopCommand(Main plugin) {
 		this.plugin = plugin;
 	}
 

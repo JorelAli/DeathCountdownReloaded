@@ -1,6 +1,7 @@
 package io.github.skepter.dcreloaded.listeners;
 
-import io.github.skepter.dcreloaded.DeathCountdown;
+import io.github.skepter.dcreloaded.Main;
+import io.github.skepter.dcreloaded.api.DCPlayer;
 
 import java.util.List;
 
@@ -11,9 +12,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class ChatListener implements Listener {
-	DeathCountdown plugin;
+	Main plugin;
 
-	public ChatListener(DeathCountdown plugin) {
+	public ChatListener(Main plugin) {
 		this.plugin = plugin;
 	}
 
@@ -27,7 +28,7 @@ public class ChatListener implements Listener {
 			}
 		}
 		String currentname = player.getName();
-		int time = this.plugin.getTime(player);
+		int time = new DCPlayer(player).getTime();
 		ChatColor r = ChatColor.RESET;
 		ChatColor e;
 		if (this.plugin.getConfig().getDouble("ConfigVersion") < 2.0D) {
@@ -76,26 +77,26 @@ public class ChatListener implements Listener {
 					return;
 				}
 				player.setDisplayName(p + "[" + g + "Great" + p + "] " + r + currentname);
-			}
+			}}
 			//What does this code even do?
-		} else if ((ranksEnabled = 1) != 0) {
-			List<String> ranks = this.plugin.getConfig().getStringList("Ranks");
-			ChatColor.translateAlternateColorCodes('&', "");
-			if ((player.getName().equals(this.plugin.getConfig().getString("ownerName")))
-					&& (this.plugin.getConfig().getBoolean("ownerTimeLord"))) {
-				player.setDisplayName(ChatColor.translateAlternateColorCodes('&',
-						this.plugin.getConfig().getString("timeLordPrefix"))
-						+ r + this.plugin.getConfig().getString("ownerName"));
-				return;
-			}
-			for (String rank : ranks) {
-				String prefix = this.plugin.getConfig().getString("Rank." + rank + ".prefix");
-				if ((time > this.plugin.getConfig().getDouble("Rank." + rank + ".lowerTime"))
-						&& (time < this.plugin.getConfig().getDouble("Rank." + rank + ".upperTime"))) {
-					player.setDisplayName(ChatColor.translateAlternateColorCodes('&', prefix) + r + currentname);
-					return;
-				}
-			}
-		}
+//		} else if ((ranksEnabled = 1) != 0) {
+//			List<String> ranks = this.plugin.getConfig().getStringList("Ranks");
+//			ChatColor.translateAlternateColorCodes('&', "");
+//			if ((player.getName().equals(this.plugin.getConfig().getString("ownerName")))
+//					&& (this.plugin.getConfig().getBoolean("ownerTimeLord"))) {
+//				player.setDisplayName(ChatColor.translateAlternateColorCodes('&',
+//						this.plugin.getConfig().getString("timeLordPrefix"))
+//						+ r + this.plugin.getConfig().getString("ownerName"));
+//				return;
+//			}
+//			for (String rank : ranks) {
+//				String prefix = this.plugin.getConfig().getString("Rank." + rank + ".prefix");
+//				if ((time > this.plugin.getConfig().getDouble("Rank." + rank + ".lowerTime"))
+//						&& (time < this.plugin.getConfig().getDouble("Rank." + rank + ".upperTime"))) {
+//					player.setDisplayName(ChatColor.translateAlternateColorCodes('&', prefix) + r + currentname);
+//					return;
+//				}
+//			}
+//		}
 	}
 }
