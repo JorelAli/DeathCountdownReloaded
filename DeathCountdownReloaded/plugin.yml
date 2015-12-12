@@ -3,3 +3,17 @@ main: io.github.skepter.dcreloaded.main
 version: 1.0
 description: -- Insert description here --
 author: Skepter
+softdepend: [Votifier]
+
+commands:
+  dc:
+    description: DeathCountdown Control Panel
+    usage: Use /dc
+  
+  dctime:
+    description: Make time transfers
+    usage: Use /dctime
+    
+  dctop:
+    description: Shows players time in order
+    usage: Use /dctop <page>
