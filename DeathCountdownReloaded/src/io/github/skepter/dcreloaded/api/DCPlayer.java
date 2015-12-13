@@ -47,20 +47,6 @@ public class DCPlayer {
 				int timeLoss = time - instance.getConfig().getInt("amount");
 				TimeChangeEvent event = new TimeChangeEvent(instance, player, time, timeLoss);
 				Bukkit.getServer().getPluginManager().callEvent(event);
-				
-				/* Does some stuff with the xp bar.... should we not just use that packetty thing
-				 * which has text above the xpbar instead?? 
-				 * 
-				 * Now removing support for xpbar.*/
-				if (instance.getConfig().getBoolean("useXpBar")) {
-					
-					if (time > 32767) {
-						player.setLevel(32767);
-					} else {
-						player.setLevel(time);
-					}
-					return;
-				}
 			}
 		}, 0L, instance.getConfig().getLong("delay"));
 		setTaskID(taskID);
@@ -68,8 +54,8 @@ public class DCPlayer {
 
 	public void addToDatabase(int startTime) {
 		try {
-			instance.sqlite.execute("INSERT INTO DeathCountdownData(playername, time, canRevive, isAdmin, taskID, oldXP, bannedFromWorlds) VALUES('"
-					+ player.getName() + "', '" + startTime + "', 'false', 'false', '0', '0', '');");
+			instance.sqlite.execute("INSERT INTO DeathCountdownData(playername, time, canRevive, isAdmin, taskID) VALUES('"
+					+ player.getName() + "', '" + startTime + "', 'false', 'false');");
 		} catch (SQLException e) {
 			Bukkit.getLogger().warning("There was an error creating the player's database file");
 		}
@@ -78,13 +64,6 @@ public class DCPlayer {
 	public int getTime() {
 		ResultSet result = instance.sqlite.executeQuery("SELECT time FROM DeathCountdownData WHERE playername='" + player.getName() + "';");
 		String r = instance.sqlite.resultToString(result, "time");
-		return Integer.valueOf(r).intValue();
-	}
-
-	@Deprecated
-	public int getXP() {
-		ResultSet result = instance.sqlite.executeQuery("SELECT oldXP FROM DeathCountdownData WHERE playername='" + player.getName() + "';");
-		String r = instance.sqlite.resultToString(result, "oldXP");
 		return Integer.valueOf(r).intValue();
 	}
 
@@ -135,15 +114,6 @@ public class DCPlayer {
 			instance.sqlite.execute("UPDATE DeathCountdownData SET taskID='" + taskID + "' WHERE playername='" + player.getName() + "';");
 		} catch (SQLException e) {
 			Bukkit.getLogger().warning("There was an error updating the taskID");
-		}
-	}
-
-	@Deprecated
-	public void setXP(int xp) {
-		try {
-			instance.sqlite.execute("UPDATE DeathCountdownData SET oldXP='" + xp + "' WHERE playername='" + player.getName() + "';");
-		} catch (SQLException e) {
-			Bukkit.getLogger().warning("There was an error updating the xp");
 		}
 	}
 
