@@ -55,11 +55,11 @@ public class Main extends JavaPlugin {
 			this.sqlite.open();
 		} catch (SQLException e1) {
 			log.info("Could not access database, shutting down");
-			//Shut down plugin
+			Bukkit.getPluginManager().disablePlugin(this);
 		}
 		try {
 			this.sqlite
-					.execute("CREATE TABLE IF NOT EXISTS DeathCountdownData (playername VARCHAR(16), time INTEGER(15), canRevive BOOLEAN, isAdmin BOOLEAN, taskID INTEGER(3), oldXP INTEGER(15));");
+					.execute("CREATE TABLE IF NOT EXISTS DeathCountdownData (playername VARCHAR(16), time INTEGER(15), canRevive BOOLEAN, isAdmin BOOLEAN, taskID INTEGER(3));");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

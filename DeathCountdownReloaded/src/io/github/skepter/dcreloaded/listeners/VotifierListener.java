@@ -19,6 +19,7 @@ public class VotifierListener implements Listener {
 		this.plugin = plugin;
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onVote(VotifierEvent event) {
 		Vote vote = event.getVote();

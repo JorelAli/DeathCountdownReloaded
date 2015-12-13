@@ -12,14 +12,13 @@ import org.bukkit.event.HandlerList;
 
 public final class TimeOutEvent extends Event implements Cancellable {
 	private static final HandlerList handlers = new HandlerList();
-	Main plugin;
 	private Player player;
 	private World world;
 
-	public TimeOutEvent(Main plugin, Player player) {
+	public TimeOutEvent(Player player) {
 
 		this.player = player;
-		this.plugin = plugin;
+		Main plugin = Main.getInstance();
 		this.world = player.getWorld();
 		
 		DCPlayer dcplayer = new DCPlayer(player);
@@ -49,6 +48,8 @@ public final class TimeOutEvent extends Event implements Cancellable {
 		if (plugin.getConfig().getBoolean("doBroadcast")) {
 			Bukkit.broadcastMessage(plugin.prefix + player.getName() + " timed out!");
 		}
+		
+		player.setHealth(0);
 	}
 
 	public Player getPlayer() {

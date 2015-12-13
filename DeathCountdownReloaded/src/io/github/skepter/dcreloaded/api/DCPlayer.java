@@ -38,7 +38,7 @@ public class DCPlayer {
 				
 				/* Times the player out if they run out of time */
 				if (time <= 0) {
-					TimeOutEvent event = new TimeOutEvent(instance, player);
+					TimeOutEvent event = new TimeOutEvent(player);
 					Bukkit.getServer().getPluginManager().callEvent(event);
 					return; //Don't return... stop the task?
 				}
@@ -66,7 +66,7 @@ public class DCPlayer {
 		setTaskID(taskID);
 	}
 
-	public void create(int startTime) {
+	public void addToDatabase(int startTime) {
 		try {
 			instance.sqlite.execute("INSERT INTO DeathCountdownData(playername, time, canRevive, isAdmin, taskID, oldXP, bannedFromWorlds) VALUES('"
 					+ player.getName() + "', '" + startTime + "', 'false', 'false', '0', '0', '');");
@@ -147,7 +147,7 @@ public class DCPlayer {
 		}
 	}
 
-	public boolean check() {
+	public boolean isInDatabase() {
 		ResultSet result = instance.sqlite.executeQuery("SELECT playername FROM DeathCountdownData;");
 		ArrayList<String> r = instance.sqlite.resultToArray(result, "playername");
 		if ((r == null) || (!r.toString().contains(player.getName()))) {

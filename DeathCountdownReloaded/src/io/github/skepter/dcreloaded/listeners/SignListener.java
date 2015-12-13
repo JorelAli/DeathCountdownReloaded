@@ -16,6 +16,7 @@ public class SignListener implements Listener {
 		this.plugin = plugin;
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onCreate(SignChangeEvent event) {
 		for (String str : this.plugin.getConfig().getStringList("blacklistedWorlds")) {
