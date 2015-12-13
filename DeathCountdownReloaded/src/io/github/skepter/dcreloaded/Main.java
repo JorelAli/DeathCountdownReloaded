@@ -23,6 +23,7 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -38,7 +39,7 @@ public class Main extends JavaPlugin {
 	public Logger log;
 	public SQLite sqlite;
 	PluginDescriptionFile description = getDescription();
-	public String prefix = "�a[DeathCountdown]�7 ";
+	public String prefix = ChatColor.GREEN + "[DeathCountdown] " + ChatColor.GRAY;
 
 	public Main getPlugin() {
 		return this;
@@ -189,24 +190,5 @@ public class Main extends JavaPlugin {
 		ResultSet result = this.sqlite.executeQuery("SELECT playername FROM DeathCountdownData ORDER BY time DESC;");
 		ArrayList<String> r = resultToArray(result, "playername");
 		return r;
-	}
-
-	public boolean checkInventoryForTTDevice(Player player) {
-		if (!player.getInventory().contains(TTDevice())) {
-			return false;
-		}
-		return true;
-	}
-
-	public ItemStack TTDevice() {
-		ItemStack item = new ItemStack(Material.WATCH, 1);
-		item.addUnsafeEnchantment(Enchantment.SILK_TOUCH, 2);
-		ItemMeta im = item.getItemMeta();
-		im.setDisplayName("Time Transfer Device");
-		String[] itemlore = { getConfig().getString("clockLore") };
-
-		im.setLore(Arrays.asList(itemlore));
-		item.setItemMeta(im);
-		return item;
 	}
 }

@@ -1,6 +1,7 @@
 package io.github.skepter.dcreloaded.cmds;
 
 import io.github.skepter.dcreloaded.Main;
+import io.github.skepter.dcreloaded.api.DCPlayer;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -21,7 +22,7 @@ public class TimeCommand implements CommandExecutor {
 			ChatColor a = ChatColor.GREEN;
 			ChatColor g = ChatColor.GRAY;
 			if ((command.getName().equalsIgnoreCase("dctime")) && (args.length == 0)) {
-				player.sendMessage(this.plugin.prefix + g + "Your current time is: " + a + this.plugin.getTime(player));
+				player.sendMessage(this.plugin.prefix + g + "Your current time is: " + a + new DCPlayer(player).getTime());
 			}
 		}
 		return true;
