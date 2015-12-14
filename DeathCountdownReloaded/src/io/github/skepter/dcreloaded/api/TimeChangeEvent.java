@@ -20,6 +20,7 @@ public final class TimeChangeEvent extends Event implements Cancellable {
 		this.oldtime = oldtime;
 		this.newtime = newtime;
 		new DCPlayer(player).displayTime();
+		//make sure to update the time here!!!!
 	}
 
 	public Player getPlayer() {
@@ -47,6 +48,7 @@ public final class TimeChangeEvent extends Event implements Cancellable {
 	}
 
 	public boolean isCancelled() {
+		//FIX THIS NOW YOU STUPID IDIOT!!!!! 
 		return false;
 	}
 

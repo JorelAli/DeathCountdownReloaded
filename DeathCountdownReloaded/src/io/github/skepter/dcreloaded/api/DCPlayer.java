@@ -45,8 +45,7 @@ public class DCPlayer {
 				}
 				
 				/* TimeChange event (Updates the player's time) */
-				int timeLoss = time - instance.getConfig().getInt("amount");
-				TimeChangeEvent event = new TimeChangeEvent(instance, player, time, timeLoss);
+				TimeChangeEvent event = new TimeChangeEvent(instance, player, time, time - instance.getConfig().getInt("amount"));
 				Bukkit.getServer().getPluginManager().callEvent(event);
 			}
 		}, 0L, instance.getConfig().getLong("delay"));
