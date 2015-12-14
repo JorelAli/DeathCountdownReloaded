@@ -20,18 +20,18 @@ public final class TimeOutEvent extends Event implements Cancellable {
 		this.player = player;
 		Main plugin = Main.getInstance();
 		this.world = player.getWorld();
-		
+
 		DCPlayer dcplayer = new DCPlayer(player);
-		
-		if(dcplayer.isInBlacklistedWorld())
+
+		if (dcplayer.isInBlacklistedWorld())
 			return;
-		
+
 		if (dcplayer.isAdmin()) {
 			dcplayer.setTime(plugin.getConfig().getInt("startTime"));
 			setCancelled(true);
 			return;
 		}
-		
+
 		if (dcplayer.canRevive()) {
 			dcplayer.setRevive(false);
 			dcplayer.setTime(plugin.getConfig().getInt("startTime"));
@@ -39,17 +39,20 @@ public final class TimeOutEvent extends Event implements Cancellable {
 			setCancelled(true);
 			return;
 		}
-		
-		if (plugin.getConfig().getBoolean("playSound")) {
-			for(Player p : Bukkit.getOnlinePlayers()) {
-				p.playSound(p.getLocation(), Sound.WITHER_SPAWN, 100.0F, 2.0F);
+
+		if (!isCancelled()) {
+			if (plugin.getConfig().getBoolean("playSound")) {
+				for (Player p : Bukkit.getOnlinePlayers()) {
+					p.playSound(p.getLocation(), Sound.WITHER_SPAWN, 100.0F, 2.0F);
+				}
 			}
+			if (plugin.getConfig().getBoolean("doBroadcast")) {
+				Bukkit.broadcastMessage(plugin.prefix + player.getName() + " timed out!");
+			}
+
+			player.setHealth(0);
 		}
-		if (plugin.getConfig().getBoolean("doBroadcast")) {
-			Bukkit.broadcastMessage(plugin.prefix + player.getName() + " timed out!");
-		}
-		
-		player.setHealth(0);
+
 	}
 
 	public Player getPlayer() {

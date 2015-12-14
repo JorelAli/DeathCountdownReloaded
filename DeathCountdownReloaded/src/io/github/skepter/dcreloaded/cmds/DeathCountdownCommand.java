@@ -5,8 +5,6 @@ import io.github.skepter.dcreloaded.api.DCPlayer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.World;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -39,14 +37,9 @@ public class DeathCountdownCommand implements CommandExecutor {
 				sender.sendMessage(a + "/dc setrevivable <player> true/false " + g + "Set's a player's state as revivable");
 				sender.sendMessage(a + "/dc checkrevivable <player> " + g + "Check's if a player is revivable");
 				sender.sendMessage("");
-				sender.sendMessage(a + "/dc revive <player> " + g + "Revives a banned player");
-				sender.sendMessage("");
-				sender.sendMessage(a + "/dc unban <player> <world>" + g + "Unbans a player from a world");
-				sender.sendMessage(a + "/dc checkbans <player> " + g + "Checks world bans from a player");
-				sender.sendMessage("");
 				sender.sendMessage(a + "/dc reload " + g + "Reloads plugin");
 				sender.sendMessage(a + "/dc listperms " + g + "Lists the permissions from this plugin");
-			} else {
+			} else if (!args[0].equalsIgnoreCase("reload") || !args[0].equalsIgnoreCase("listperms")) {
 
 				/* Get the target player */
 				Player target = null;
@@ -104,94 +97,46 @@ public class DeathCountdownCommand implements CommandExecutor {
 					case "check":
 						sender.sendMessage(this.plugin.prefix + target.getName() + "'s time is: " + a + time);
 						return true;
-				}
-				if (args[0].equalsIgnoreCase("setadmin")) {
-					Player target = null;
-					try {
-						target = Bukkit.getPlayerExact(args[1]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
+					case "setadmin":
+						boolean isAdmin = false;
+						try {
+							isAdmin = Boolean.parseBoolean(args[2]);
+						} catch (Exception e) {
+							sender.sendMessage(this.plugin.prefix + "Please enter true or false!");
+						}
+						dcplayer.setAdmin(isAdmin);
+						if (isAdmin)
+							sender.sendMessage(this.plugin.prefix + target.getName() + " is now Admin status");
+						else
+							sender.sendMessage(this.plugin.prefix + target.getName() + " is no longer Admin status");
+
 						return true;
-					}
-					boolean isAdmin = false;
-					try {
-						isAdmin = Boolean.parseBoolean(args[2]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Please enter true or false!");
-					}
-					this.plugin.setAdmin(target, isAdmin);
-					if (isAdmin) {
-						sender.sendMessage(this.plugin.prefix + target.getName() + " is now Admin status");
-					} else {
-						sender.sendMessage(this.plugin.prefix + target.getName() + " is no longer Admin status");
-					}
-					return true;
-				}
-				if (args[0].equalsIgnoreCase("checkadmin")) {
-					Player target = null;
-					try {
-						target = Bukkit.getPlayerExact(args[1]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
+					case "checkadmin":
+						if (dcplayer.isAdmin())
+							sender.sendMessage(this.plugin.prefix + target.getName() + " is an Admin");
+						else
+							sender.sendMessage(this.plugin.prefix + target.getName() + " is not an Admin");
 						return true;
-					}
-					boolean isAdmin = this.plugin.getAdmin(target);
-					if (isAdmin) {
-						sender.sendMessage(this.plugin.prefix + target.getName() + " is an Admin");
-					} else {
-						sender.sendMessage(this.plugin.prefix + target.getName() + " is not an Admin");
-					}
-					return true;
-				}
-				if (args[0].equalsIgnoreCase("setrevivable")) {
-					Player target = null;
-					try {
-						target = Bukkit.getPlayerExact(args[1]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
+					case "setrevivable":
+						boolean isRevivable = false;
+						try {
+							isRevivable = Boolean.parseBoolean(args[2]);
+						} catch (Exception e) {
+							sender.sendMessage(this.plugin.prefix + "Please enter true or false!");
+						}
+						dcplayer.setRevive(isRevivable);
+						if (isRevivable)
+							sender.sendMessage(this.plugin.prefix + target.getName() + " can now revive");
+						else
+							sender.sendMessage(this.plugin.prefix + target.getName() + " can no longer revive");
 						return true;
-					}
-					boolean canRevive = false;
-					try {
-						canRevive = Boolean.parseBoolean(args[2]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Please enter true or false!");
-					}
-					this.plugin.setRevive(target, canRevive);
-					if (canRevive) {
-						sender.sendMessage(this.plugin.prefix + target.getName() + " can now revive");
-					} else {
-						sender.sendMessage(this.plugin.prefix + target.getName() + " can no longer revive");
-					}
-					return true;
-				}
-				if (args[0].equalsIgnoreCase("checkrevivable")) {
-					Player target = null;
-					try {
-						target = Bukkit.getPlayerExact(args[1]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
+					case "checkrevivable":
+						if (dcplayer.canRevive()) {
+							sender.sendMessage(this.plugin.prefix + target.getName() + " can revive");
+						} else {
+							sender.sendMessage(this.plugin.prefix + target.getName() + " can not revive");
+						}
 						return true;
-					}
-					boolean canRevive = this.plugin.getRevive(target);
-					if (canRevive) {
-						sender.sendMessage(this.plugin.prefix + target.getName() + " can revive");
-					} else {
-						sender.sendMessage(this.plugin.prefix + target.getName() + " can not revive");
-					}
-					return true;
-				}
-				if (args[0].equalsIgnoreCase("revive")) {
-					OfflinePlayer player = null;
-					try {
-						player = Bukkit.getOfflinePlayer(args[1]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find that player!");
-						return true;
-					}
-					this.plugin.unban(player);
-					sender.sendMessage(this.plugin.prefix + args[1] + " revived");
-					return true;
 				}
 				if (args[0].equalsIgnoreCase("reload")) {
 					this.plugin.reloadConfig();
@@ -205,43 +150,11 @@ public class DeathCountdownCommand implements CommandExecutor {
 					sender.sendMessage(a + this.plugin.sign + g + " Allows the player to create a sign");
 					return true;
 				}
-				if (args[0].equalsIgnoreCase("unban")) {
-					Player target = null;
-					try {
-						target = Bukkit.getPlayerExact(args[1]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
-						return true;
-					}
-					World world = null;
-					try {
-						world = Bukkit.getWorld(args[2]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find world!");
-						return true;
-					}
-					this.plugin.removeBannedWorld(target, world.getName());
-					sender.sendMessage(this.plugin.prefix + "Successfully unbanned " + target.getName() + " from the world " + world.getName());
-					return true;
-				}
-				if (args[0].equalsIgnoreCase("checkbans")) {
-					Player target = null;
-					try {
-						target = Bukkit.getPlayerExact(args[1]);
-					} catch (Exception e) {
-						sender.sendMessage(this.plugin.prefix + "Could not find player!");
-						return true;
-					}
-					String s = this.plugin.getBannedWorlds(target);
-					String s1 = s.replaceAll("-", ", ");
-					sender.sendMessage(this.plugin.prefix + target.getName() + " is banned from these worlds: " + s1);
-					return true;
-				}
 				sender.sendMessage(this.plugin.prefix + "Unknown argument");
 				return true;
 			}
 		}
-		sender.sendMessage(this.plugin.prefix + "You don't have permission to use /DC");
+		sender.sendMessage(this.plugin.prefix + "You don't have permission to use /dc");
 		return true;
 	}
 }
