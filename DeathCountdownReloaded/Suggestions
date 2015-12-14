@@ -1,0 +1,3 @@
+* Make players invincible and make mobs hitting the player make them lose time
+* When a player reaches 0, they die and everything is rolled back (e.g. CoreProtect/LogBlock etc)
+* The player respawns in a random place
