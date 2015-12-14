@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class DCPlayer {
@@ -135,9 +136,10 @@ public class DCPlayer {
 		return false;
 	}
 	
-	/** Sends the player how much time they have using Reflections */
+	/** Tells the player how much time */
 	public void displayTime() {
-		instance.getPacket().sendActionBarMessage(player, String.valueOf(getTime()));
+		String time = ChatColor.GREEN + "Time remaining: " + ChatColor.GRAY + getTime();
+		instance.getPacket().sendActionBarMessage(player, time);
 	}
 
 }
