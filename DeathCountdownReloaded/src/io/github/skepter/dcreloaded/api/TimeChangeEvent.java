@@ -8,19 +8,22 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public final class TimeChangeEvent extends Event implements Cancellable {
+	
 	private static final HandlerList handlers = new HandlerList();
 	Main plugin;
 	private Player player;
 	private int oldtime;
 	private int newtime;
+	private boolean isCancelled = false;
 
 	public TimeChangeEvent(Main plugin, Player player, int oldtime, int newtime) {
 		this.plugin = plugin;
 		this.player = player;
 		this.oldtime = oldtime;
 		this.newtime = newtime;
-		new DCPlayer(player).displayTime();
-		//make sure to update the time here!!!!
+		DCPlayer dcplayer = new DCPlayer(player);
+		dcplayer.setTime(newtime);
+		dcplayer.displayTime();
 	}
 
 	public Player getPlayer() {
@@ -47,11 +50,11 @@ public final class TimeChangeEvent extends Event implements Cancellable {
 		return handlers;
 	}
 
-	public boolean isCancelled() {
-		//FIX THIS NOW YOU STUPID IDIOT!!!!! 
-		return false;
+	public boolean isCancelled() { 
+		return isCancelled;
 	}
 
 	public void setCancelled(boolean arg0) {
+		isCancelled = arg0;
 	}
 }
