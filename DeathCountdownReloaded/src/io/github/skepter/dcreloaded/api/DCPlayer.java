@@ -1,6 +1,7 @@
 package io.github.skepter.dcreloaded.api;
 
 import io.github.skepter.dcreloaded.Main;
+import io.github.skepter.dcreloaded.reflection.TimePacket;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -134,6 +135,11 @@ public class DCPlayer {
 			}
 		}
 		return false;
+	}
+	
+	/** Sends the player how much time they have using Reflections */
+	public void updateTimeToPlayer() {
+		new TimePacket(player, getTime()).send();
 	}
 
 }
