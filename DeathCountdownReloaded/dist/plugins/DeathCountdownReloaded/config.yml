@@ -1,0 +1,136 @@
+################# DeathCountdownReloaded Config #################
+#              --- Plugin created by Skepter ---                #
+#                                                               #
+#                   Copyright c Skepter 2015                    #
+# [Sort out copyright info here] All Rights Reserved            #
+#                                                               #
+# http://dev.bukkit.org/bukkit-plugins/deathcountdown/          #
+#################################################################
+
+#############################################
+# Configuration Version: DO NOT CHANGE THIS #
+# Changing this can cause the database to   #
+# break!                                    #
+#############################################
+
+ConfigVersion: 2.0
+
+##################################################################
+# When adjusting this Configuration, PLEASE USE SPACES not TABS! #
+##################################################################
+
+########################################################
+# Main Configuration - The main stuff you need to have #
+########################################################
+
+#Amount of time you start with (Default is 600 = 10 mins)
+startTime: 600
+
+#Delay between each time loss (20 = 1 second)
+delay: 20
+
+#Amount of time you lose if you die in game
+timeLost: 100
+
+#Amount of time is removed when the count down activates
+amount: 1
+
+#Amount of time you gain if you kill a mob
+mobReward: 25
+
+#Amount of time is transferred per click
+transferSpeed: 10
+
+#Lore to be added to the clock
+clockLore: 'Transfers at 10 time per use'
+
+####################################################
+# Worlds - Controls all aspects of multiple worlds #
+####################################################
+
+#When you put a world in this list, players will not have ranks, lose time, etc.
+#To keep all worlds, use:
+# blacklistedWorlds:
+#  - 
+#Blacklisted worlds will not have any DeathCountdown functions
+
+blacklistedWorlds:
+  - worldname
+
+#Have a different time in each world?
+#Note: This feature is currently BROKEN
+#UnSyncedTime: false
+
+##########################################################
+# Timing out  - Controls actions when a player times out #
+##########################################################
+
+#Play sound when player times out?
+playSound: true
+
+#Broadcast a global message when a player times out?
+doBroadcast: true
+
+###################################
+# Ranks - Allows ranks to be used #
+###################################
+
+enableRanks: true
+
+#Ranks are defined by the amount of time the player has
+#To add Ranks, put it into the list called 'Ranks'
+
+Ranks:
+  - desperate
+  - low
+  - average
+  - good
+  - great
+
+#Once you add a rank to the list above, please follow the pattern
+#to adjust the rank
+#The rank MUST have the same name as the one specified in 'Ranks'
+#The rank must include a prefix, lowerTime and upperTime
+#When adding color to a prefix, please use '&'
+
+Rank:
+  desperate:
+    prefix: '&c[Desperate] '
+    lowerTime: 0
+    upperTime: 100
+  low:
+    prefix: '&e[Low] ' 
+    lowerTime: 101
+    upperTime: 1000
+  average:
+    prefix: '&a[Average] '
+    lowerTime: 1001
+    upperTime: 2000
+  good:
+    prefix: '&2[Good] ' 
+    lowerTime: 2001
+    upperTime: 5000
+  great:
+    prefix: '&b[&6Good&b] ' 
+    lowerTime: 5001
+    upperTime: 10000
+
+####################################################################
+# Extra Configuration - Not required, but useful for full features #
+####################################################################
+
+#Check for updates?
+updateCheck: false
+
+#Send metrics?
+#Metrics helps this plugin by sending small statistics about your server
+sendMetrics: true
+
+#Enable Votifier support?
+votifierSupport: false
+
+#Amount of time you gain if you vote
+voteAmount: 100
+
+#Give Time Transfer Device on join?
+giveTTDevice: true

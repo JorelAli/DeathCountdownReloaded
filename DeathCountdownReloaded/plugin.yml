@@ -1,5 +1,5 @@
 name: DeathCountdownReloaded
-main: io.github.skepter.dcreloaded.main
+main: io.github.skepter.dcreloaded.Main
 version: 1.0
 description: -- Insert description here --
 author: Skepter

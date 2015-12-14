@@ -10,7 +10,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerExpChangeEvent;
 
 public class PlayerManager implements Listener {
 	Main plugin;
@@ -62,25 +61,12 @@ public class PlayerManager implements Listener {
 	}
 
 	@EventHandler
-	public void onXpChange(PlayerExpChangeEvent event) {
-		if (new DCPlayer(event.getPlayer()).isInBlacklistedWorld())
-			return;
-		if (this.plugin.getConfig().getBoolean("useXpBar")) {
-			event.setAmount(0);
-			return;
-		}
-	}
-
-	@EventHandler
 	public void onWorldChange(PlayerChangedWorldEvent event) {
 		Player player = event.getPlayer();
 		DCPlayer dcplayer = new DCPlayer(player);
 		for (String world : this.plugin.getConfig().getStringList("blacklistedWorlds")) {
 			if (player.getWorld().getName().equals(world)) {
 				dcplayer.stop();
-//				if (this.plugin.getConfig().getBoolean("useXpBar")) {
-//					player.setExp(dcplayer.getXP());
-//				}
 				player.sendMessage(this.plugin.prefix + "You are in a blacklisted world. You will not lose time in here.");
 				return;
 			}
