@@ -40,6 +40,7 @@ public class DeathCountdownCommand implements CommandExecutor {
 				sender.sendMessage("");
 				sender.sendMessage(a + "/dc reload " + g + "Reloads plugin");
 				sender.sendMessage(a + "/dc listperms " + g + "Lists the permissions from this plugin");
+				return true;
 			} else if (!args[0].equalsIgnoreCase("reload") || !args[0].equalsIgnoreCase("listperms")) {
 
 				/* Get the target player */
@@ -139,18 +140,19 @@ public class DeathCountdownCommand implements CommandExecutor {
 						}
 						return true;
 				}
-			}
-			if (args[0].equalsIgnoreCase("reload")) {
-				this.plugin.reloadConfig();
-				this.plugin.getServer().getScheduler().cancelTasks(this.plugin);
-				this.plugin.restartScheduler();
-				sender.sendMessage(this.plugin.prefix + "DeathCountdown reloaded");
-				return true;
-			}
-			if (args[0].equalsIgnoreCase("listperms")) {
-				sender.sendMessage(a + this.plugin.command + g + " Allows the player to use the /dc command");
-				sender.sendMessage(a + this.plugin.sign + g + " Allows the player to create a sign");
-				return true;
+			} else {
+				if (args[0].equalsIgnoreCase("reload")) {
+					this.plugin.reloadConfig();
+					this.plugin.getServer().getScheduler().cancelTasks(this.plugin);
+					this.plugin.restartScheduler();
+					sender.sendMessage(this.plugin.prefix + "DeathCountdown reloaded");
+					return true;
+				}
+				if (args[0].equalsIgnoreCase("listperms")) {
+					sender.sendMessage(a + this.plugin.command + g + " Allows the player to use the /dc command");
+					sender.sendMessage(a + this.plugin.sign + g + " Allows the player to create a sign");
+					return true;
+				}
 			}
 			sender.sendMessage(this.plugin.prefix + "Unknown argument");
 			return true;

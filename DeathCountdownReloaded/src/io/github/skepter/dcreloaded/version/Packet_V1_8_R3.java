@@ -20,6 +20,7 @@ public class Packet_V1_8_R3 implements Packet {
 	public boolean sendActionBarMessage(Player player, String message) {
 		PacketPlayOutChat packet = new PacketPlayOutChat(ChatSerializer.a(message), (byte) 2);
 		((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+
 		return true;
 	}
 }

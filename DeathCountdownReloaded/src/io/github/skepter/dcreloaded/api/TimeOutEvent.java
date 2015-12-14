@@ -34,6 +34,7 @@ public final class TimeOutEvent extends Event implements Cancellable {
 			return;
 		}
 
+		//remove revive...???
 		if (dcplayer.canRevive()) {
 			dcplayer.setRevive(false);
 			dcplayer.setTime(plugin.getConfig().getInt("startTime"));
@@ -53,6 +54,8 @@ public final class TimeOutEvent extends Event implements Cancellable {
 			}
 
 			player.setHealth(0);
+			//For testing...???
+			dcplayer.setTime(plugin.getConfig().getInt("startTime"));
 		}
 
 	}
