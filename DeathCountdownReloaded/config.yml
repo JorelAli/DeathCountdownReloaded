@@ -7,14 +7,6 @@
 # http://dev.bukkit.org/bukkit-plugins/deathcountdown/          #
 #################################################################
 
-#############################################
-# Configuration Version: DO NOT CHANGE THIS #
-# Changing this can cause the database to   #
-# break!                                    #
-#############################################
-
-ConfigVersion: 2.0
-
 ##################################################################
 # When adjusting this Configuration, PLEASE USE SPACES not TABS! #
 ##################################################################
@@ -40,9 +32,6 @@ mobReward: 25
 
 #Amount of time is transferred per click
 transferSpeed: 10
-
-#Lore to be added to the clock
-clockLore: 'Transfers at 10 time per use'
 
 ####################################################
 # Worlds - Controls all aspects of multiple worlds #
@@ -131,6 +120,3 @@ votifierSupport: false
 
 #Amount of time you gain if you vote
 voteAmount: 100
-
-#Give Time Transfer Device on join?
-giveTTDevice: true
