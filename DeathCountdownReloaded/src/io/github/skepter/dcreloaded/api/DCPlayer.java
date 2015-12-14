@@ -138,7 +138,7 @@ public class DCPlayer {
 	}
 	
 	/** Sends the player how much time they have using Reflections */
-	public void updateTimeToPlayer() {
+	public void displayTime() {
 		new TimePacket(player, getTime()).send();
 	}
 
