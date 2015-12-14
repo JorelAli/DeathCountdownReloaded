@@ -19,6 +19,7 @@ public class DeathCountdownCommand implements CommandExecutor {
 		this.plugin = plugin;
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if ((command.getName().equalsIgnoreCase("dc"))
 				&& ((sender.hasPermission(this.plugin.command)) || (sender.isOp()) || ((sender instanceof ConsoleCommandSender)) || ((sender instanceof BlockCommandSender)))) {
@@ -138,23 +139,24 @@ public class DeathCountdownCommand implements CommandExecutor {
 						}
 						return true;
 				}
-				if (args[0].equalsIgnoreCase("reload")) {
-					this.plugin.reloadConfig();
-					this.plugin.getServer().getScheduler().cancelTasks(this.plugin);
-					this.plugin.restartScheduler();
-					sender.sendMessage(this.plugin.prefix + "DeathCountdown reloaded");
-					return true;
-				}
-				if (args[0].equalsIgnoreCase("listperms")) {
-					sender.sendMessage(a + this.plugin.command + g + " Allows the player to use the /dc command");
-					sender.sendMessage(a + this.plugin.sign + g + " Allows the player to create a sign");
-					return true;
-				}
-				sender.sendMessage(this.plugin.prefix + "Unknown argument");
+			}
+			if (args[0].equalsIgnoreCase("reload")) {
+				this.plugin.reloadConfig();
+				this.plugin.getServer().getScheduler().cancelTasks(this.plugin);
+				this.plugin.restartScheduler();
+				sender.sendMessage(this.plugin.prefix + "DeathCountdown reloaded");
 				return true;
 			}
+			if (args[0].equalsIgnoreCase("listperms")) {
+				sender.sendMessage(a + this.plugin.command + g + " Allows the player to use the /dc command");
+				sender.sendMessage(a + this.plugin.sign + g + " Allows the player to create a sign");
+				return true;
+			}
+			sender.sendMessage(this.plugin.prefix + "Unknown argument");
+			return true;
+		} else {
+			sender.sendMessage(this.plugin.prefix + "You don't have permission to use /dc");
+			return true;
 		}
-		sender.sendMessage(this.plugin.prefix + "You don't have permission to use /dc");
-		return true;
 	}
 }

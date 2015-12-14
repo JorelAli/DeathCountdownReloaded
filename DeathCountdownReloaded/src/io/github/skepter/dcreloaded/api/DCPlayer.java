@@ -51,11 +51,12 @@ public class DCPlayer {
 		}, 0L, instance.getConfig().getLong("delay"));
 		setTaskID(taskID);
 	}
-
+	
 	public void addToDatabase(int startTime) {
+		String query = "INSERT INTO DeathCountdownData(playername, time, canRevive, isAdmin, taskID) VALUES('" + player.getName() + "', '" + startTime + "', 'false', 'false', '0');";
+		System.out.println(query);
 		try {
-			instance.sqlite.execute("INSERT INTO DeathCountdownData(playername, time, canRevive, isAdmin, taskID) VALUES('"
-					+ player.getName() + "', '" + startTime + "', 'false', 'false');");
+			instance.sqlite.execute(query);
 		} catch (SQLException e) {
 			Bukkit.getLogger().warning("There was an error creating the player's database file");
 		}

@@ -1,104 +1,57 @@
-[00:33:20] [Server thread/INFO]: Starting minecraft server version 1.8.8
-[00:33:20] [Server thread/INFO]: Loading properties
-[00:33:20] [Server thread/INFO]: Default game type: SURVIVAL
-[00:33:20] [Server thread/INFO]: Generating keypair
-[00:33:20] [Server thread/INFO]: Starting Minecraft server on *:25565
-[00:33:20] [Server thread/INFO]: Using default channel type
-[00:33:21] [Server thread/INFO]: This server is running CraftBukkit version git-Bukkit-53fac9f (MC: 1.8.8) (Implementing API version 1.8.8-R0.1-SNAPSHOT)
-[00:33:21] [Server thread/INFO]: [DeathCountdownReloaded] Loading DeathCountdownReloaded v1.0
-[00:33:21] [Server thread/INFO]: Preparing level "world"
-[00:33:22] [Server thread/INFO]: Preparing start region for level 0 (Seed: -6401564106748894470)
-[00:33:23] [Server thread/INFO]: Preparing spawn area: 4%
-[00:33:24] [Server thread/INFO]: Preparing spawn area: 10%
-[00:33:25] [Server thread/INFO]: Preparing spawn area: 18%
-[00:33:26] [Server thread/INFO]: Preparing spawn area: 28%
-[00:33:27] [Server thread/INFO]: Preparing spawn area: 39%
-[00:33:28] [Server thread/INFO]: Preparing spawn area: 48%
-[00:33:29] [Server thread/INFO]: Preparing spawn area: 57%
-[00:33:30] [Server thread/INFO]: Preparing spawn area: 67%
-[00:33:31] [Server thread/INFO]: Preparing spawn area: 75%
-[00:33:32] [Server thread/INFO]: Preparing spawn area: 87%
-[00:33:33] [Server thread/INFO]: Preparing spawn area: 96%
-[00:33:33] [Server thread/INFO]: Preparing start region for level 1 (Seed: -6401564106748894470)
-[00:33:34] [Server thread/INFO]: Preparing spawn area: 12%
-[00:33:35] [Server thread/INFO]: Preparing spawn area: 30%
-[00:33:36] [Server thread/INFO]: Preparing spawn area: 51%
-[00:33:37] [Server thread/INFO]: Preparing spawn area: 74%
-[00:33:39] [Server thread/INFO]: Preparing spawn area: 93%
-[00:33:39] [Server thread/INFO]: Preparing start region for level 2 (Seed: -6401564106748894470)
-[00:33:40] [Server thread/INFO]: Preparing spawn area: 24%
-[00:33:41] [Server thread/INFO]: Preparing spawn area: 55%
-[00:33:42] [Server thread/INFO]: Preparing spawn area: 82%
-[00:33:43] [Server thread/INFO]: [DeathCountdownReloaded] Enabling DeathCountdownReloaded v1.0
-[00:33:43] [Server thread/INFO]: [DeathCountdown] Connecting to database...
-[00:33:43] [Server thread/INFO]: [DeathCountdown] Database connected!
-[00:33:43] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
-[00:33:44] [Server thread/INFO]: Done (22.480s)! For help, type "help" or "?"
-[00:44:42] [User Authenticator #1/INFO]: UUID of player Skepter is 9a1035b4-90e6-4ab7-8907-698d862a6b0d
-[00:44:42] [Server thread/WARN]: There was an error creating the player's database file
-[00:44:43] [Server thread/INFO]: Skepter[/127.0.0.1:63451] logged in with entity id 2242 at ([world]146.5, 77.0, 239.5)
-[00:44:43] [Server thread/WARN]: [DeathCountdownReloaded] Task #2 for DeathCountdownReloaded v1.0 generated an exception
-java.lang.NumberFormatException: null
-	at java.lang.Integer.parseInt(Integer.java:542) ~[?:1.8.0_45]
-	at java.lang.Integer.valueOf(Integer.java:766) ~[?:1.8.0_45]
-	at io.github.skepter.dcreloaded.api.DCPlayer.getTime(DCPlayer.java:67) ~[?:?]
-	at io.github.skepter.dcreloaded.api.DCPlayer$1.run(DCPlayer.java:37) ~[?:?]
-	at org.bukkit.craftbukkit.v1_8_R3.scheduler.CraftTask.run(CraftTask.java:53) ~[craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at org.bukkit.craftbukkit.v1_8_R3.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:349) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.B(MinecraftServer.java:679) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
+[01:16:45] [Server thread/INFO]: Starting minecraft server version 1.8.8
+[01:16:45] [Server thread/INFO]: Loading properties
+[01:16:45] [Server thread/INFO]: Default game type: SURVIVAL
+[01:16:45] [Server thread/INFO]: Generating keypair
+[01:16:46] [Server thread/INFO]: Starting Minecraft server on *:25565
+[01:16:46] [Server thread/INFO]: Using default channel type
+[01:16:47] [Server thread/INFO]: This server is running CraftBukkit version git-Bukkit-53fac9f (MC: 1.8.8) (Implementing API version 1.8.8-R0.1-SNAPSHOT)
+[01:16:47] [Server thread/INFO]: [DeathCountdownReloaded] Loading DeathCountdownReloaded v1.0
+[01:16:47] [Server thread/INFO]: Preparing level "world"
+[01:16:47] [Server thread/INFO]: Preparing start region for level 0 (Seed: -2723653191940524616)
+[01:16:48] [Server thread/INFO]: Preparing spawn area: 16%
+[01:16:49] [Server thread/INFO]: Preparing spawn area: 73%
+[01:16:50] [Server thread/INFO]: Preparing start region for level 1 (Seed: -2723653191940524616)
+[01:16:51] [Server thread/INFO]: Preparing spawn area: 59%
+[01:16:51] [Server thread/INFO]: Preparing start region for level 2 (Seed: -2723653191940524616)
+[01:16:52] [Server thread/INFO]: [DeathCountdownReloaded] Enabling DeathCountdownReloaded v1.0
+[01:16:52] [Server thread/INFO]: [DeathCountdown] Connecting to database...
+[01:16:52] [Server thread/INFO]: [DeathCountdown] Database connected!
+[01:16:52] [Server thread/INFO]: Server permissions file permissions.yml is empty, ignoring it
+[01:16:52] [Server thread/INFO]: Done (4.953s)! For help, type "help" or "?"
+[01:16:57] [User Authenticator #1/INFO]: UUID of player Skepter is 9a1035b4-90e6-4ab7-8907-698d862a6b0d
+[01:17:09] [Server thread/INFO]: INSERT INTO DeathCountdownData(playername, time, canRevive, isAdmin, taskID) VALUES('Skepter', '600', 'false', 'false', '0');
+[01:17:18] [Server thread/INFO]: Skepter[/127.0.0.1:64367] logged in with entity id 251 at ([world]237.5, 72.0, 50.5)
+[01:17:18] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 21505ms behind, skipping 430 tick(s)
+[01:17:22] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 3934ms behind, skipping 78 tick(s)
+[01:17:25] [Netty Server IO #1/INFO]: <Skepter> yay
+[01:17:38] [Server thread/WARN]: Can't keep up! Did the system time change, or is the server overloaded? Running 2105ms behind, skipping 42 tick(s)
+[01:17:38] [Server thread/INFO]: Opped Skepter
+[01:17:42] [Server thread/INFO]: Skepter issued server command: /dc
+[01:17:55] [Server thread/INFO]: Skepter issued server command: /dc check Skepter
+[01:17:57] [Server thread/INFO]: Skepter issued server command: /dc check Skepter
+[01:18:11] [Server thread/INFO]: Skepter issued server command: /dc reload
+[01:18:17] [Server thread/INFO]: Skepter issued server command: /dc listperms
+[01:18:20] [Server thread/INFO]: Skepter issued server command: /dc skepter listperms
+[01:18:20] [Server thread/ERROR]: null
+org.bukkit.command.CommandException: Unhandled exception executing command 'dc' in plugin DeathCountdownReloaded v1.0
+	at org.bukkit.command.PluginCommand.execute(PluginCommand.java:46) ~[craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
+	at org.bukkit.command.SimpleCommandMap.dispatch(SimpleCommandMap.java:140) ~[craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
+	at org.bukkit.craftbukkit.v1_8_R3.CraftServer.dispatchCommand(CraftServer.java:620) ~[craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
+	at net.minecraft.server.v1_8_R3.PlayerConnection.handleCommand(PlayerConnection.java:1106) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
+	at net.minecraft.server.v1_8_R3.PlayerConnection.a(PlayerConnection.java:966) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
+	at net.minecraft.server.v1_8_R3.PacketPlayInChat.a(SourceFile:37) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
+	at net.minecraft.server.v1_8_R3.PacketPlayInChat.a(SourceFile:9) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
+	at net.minecraft.server.v1_8_R3.PlayerConnectionUtils$1.run(SourceFile:13) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511) [?:1.8.0_45]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [?:1.8.0_45]
+	at net.minecraft.server.v1_8_R3.SystemUtils.a(SourceFile:44) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
+	at net.minecraft.server.v1_8_R3.MinecraftServer.B(MinecraftServer.java:672) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
 	at net.minecraft.server.v1_8_R3.DedicatedServer.B(DedicatedServer.java:335) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
 	at net.minecraft.server.v1_8_R3.MinecraftServer.A(MinecraftServer.java:628) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
 	at net.minecraft.server.v1_8_R3.MinecraftServer.run(MinecraftServer.java:536) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
 	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
-[00:44:44] [Server thread/WARN]: [DeathCountdownReloaded] Task #2 for DeathCountdownReloaded v1.0 generated an exception
-java.lang.NumberFormatException: null
-	at java.lang.Integer.parseInt(Integer.java:542) ~[?:1.8.0_45]
-	at java.lang.Integer.valueOf(Integer.java:766) ~[?:1.8.0_45]
-	at io.github.skepter.dcreloaded.api.DCPlayer.getTime(DCPlayer.java:67) ~[?:?]
-	at io.github.skepter.dcreloaded.api.DCPlayer$1.run(DCPlayer.java:37) ~[?:?]
-	at org.bukkit.craftbukkit.v1_8_R3.scheduler.CraftTask.run(CraftTask.java:53) ~[craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at org.bukkit.craftbukkit.v1_8_R3.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:349) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.B(MinecraftServer.java:679) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.DedicatedServer.B(DedicatedServer.java:335) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.A(MinecraftServer.java:628) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.run(MinecraftServer.java:536) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
-[00:44:45] [Server thread/WARN]: [DeathCountdownReloaded] Task #2 for DeathCountdownReloaded v1.0 generated an exception
-java.lang.NumberFormatException: null
-	at java.lang.Integer.parseInt(Integer.java:542) ~[?:1.8.0_45]
-	at java.lang.Integer.valueOf(Integer.java:766) ~[?:1.8.0_45]
-	at io.github.skepter.dcreloaded.api.DCPlayer.getTime(DCPlayer.java:67) ~[?:?]
-	at io.github.skepter.dcreloaded.api.DCPlayer$1.run(DCPlayer.java:37) ~[?:?]
-	at org.bukkit.craftbukkit.v1_8_R3.scheduler.CraftTask.run(CraftTask.java:53) ~[craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at org.bukkit.craftbukkit.v1_8_R3.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:349) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.B(MinecraftServer.java:679) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.DedicatedServer.B(DedicatedServer.java:335) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.A(MinecraftServer.java:628) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.run(MinecraftServer.java:536) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
-[00:44:45] [Server thread/WARN]: [DeathCountdownReloaded] Task #2 for DeathCountdownReloaded v1.0 generated an exception
-java.lang.NumberFormatException: null
-	at java.lang.Integer.parseInt(Integer.java:542) ~[?:1.8.0_45]
-	at java.lang.Integer.valueOf(Integer.java:766) ~[?:1.8.0_45]
-	at io.github.skepter.dcreloaded.api.DCPlayer.getTime(DCPlayer.java:67) ~[?:?]
-	at io.github.skepter.dcreloaded.api.DCPlayer$1.run(DCPlayer.java:37) ~[?:?]
-	at org.bukkit.craftbukkit.v1_8_R3.scheduler.CraftTask.run(CraftTask.java:53) ~[craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at org.bukkit.craftbukkit.v1_8_R3.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:349) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.B(MinecraftServer.java:679) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.DedicatedServer.B(DedicatedServer.java:335) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.A(MinecraftServer.java:628) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.run(MinecraftServer.java:536) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
-[00:44:46] [Server thread/WARN]: [DeathCountdownReloaded] Task #2 for DeathCountdownReloaded v1.0 generated an exception
-java.lang.NumberFormatException: null
-	at java.lang.Integer.parseInt(Integer.java:542) ~[?:1.8.0_45]
-	at java.lang.Integer.valueOf(Integer.java:766) ~[?:1.8.0_45]
-	at io.github.skepter.dcreloaded.api.DCPlayer.getTime(DCPlayer.java:67) ~[?:?]
-	at io.github.skepter.dcreloaded.api.DCPlayer$1.run(DCPlayer.java:37) ~[?:?]
-	at org.bukkit.craftbukkit.v1_8_R3.scheduler.CraftTask.run(CraftTask.java:53) ~[craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at org.bukkit.craftbukkit.v1_8_R3.scheduler.CraftScheduler.mainThreadHeartbeat(CraftScheduler.java:349) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.B(MinecraftServer.java:679) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.DedicatedServer.B(DedicatedServer.java:335) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.A(MinecraftServer.java:628) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at net.minecraft.server.v1_8_R3.MinecraftServer.run(MinecraftServer.java:536) [craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
-	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+Caused by: java.lang.NullPointerException
+	at io.github.skepter.dcreloaded.api.DCPlayer.getTime(DCPlayer.java:66) ~[?:?]
+	at io.github.skepter.dcreloaded.cmds.DeathCountdownCommand.onCommand(DeathCountdownCommand.java:53) ~[?:?]
+	at org.bukkit.command.PluginCommand.execute(PluginCommand.java:44) ~[craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar:git-Bukkit-53fac9f]
+	... 15 more
