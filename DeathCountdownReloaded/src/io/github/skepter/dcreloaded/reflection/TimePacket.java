@@ -39,8 +39,10 @@ public class TimePacket {
 				ReflectionUtils.setPrivateField(packet, "a", utils.chatSerialize(String.valueOf(time)));
 				ReflectionUtils.setPrivateField(packet, "b", (byte) 2);
 			} catch (final Exception e) {
+				e.printStackTrace();
 			}
 		} catch (final Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -48,6 +50,7 @@ public class TimePacket {
 		try {
 			utils.sendOutgoingPacket(packet);
 		} catch (final Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -11,6 +11,11 @@ import io.github.skepter.dcreloaded.listeners.SignListener;
 import io.github.skepter.dcreloaded.listeners.SignUseListener;
 import io.github.skepter.dcreloaded.listeners.TransferTimeListener;
 import io.github.skepter.dcreloaded.listeners.VotifierListener;
+import io.github.skepter.dcreloaded.version.Packet;
+import io.github.skepter.dcreloaded.version.Packet_V1_7_R3;
+import io.github.skepter.dcreloaded.version.Packet_V1_8_R1;
+import io.github.skepter.dcreloaded.version.Packet_V1_8_R2;
+import io.github.skepter.dcreloaded.version.Packet_V1_8_R3;
 
 import java.io.File;
 import java.math.BigInteger;
@@ -37,9 +42,10 @@ public class Main extends JavaPlugin {
 	public String command = "DeathCountdown.Command";
 	public String sign = "DeathCountdown.Sign";
 	public Logger log;
-	public SQLite sqlite;
+	private SQLite sqlite;
 	PluginDescriptionFile description = getDescription();
 	public String prefix = ChatColor.GREEN + "[DeathCountdown] " + ChatColor.GRAY;
+	private Packet packet;
 
 	public Main getPlugin() {
 		return this;
@@ -62,6 +68,42 @@ public class Main extends JavaPlugin {
 					.execute("CREATE TABLE IF NOT EXISTS DeathCountdownData (playername VARCHAR(16), time INTEGER(15), canRevive BOOLEAN, isAdmin BOOLEAN, taskID INTEGER(3));");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		
+		/* NMS version dependant system */
+		if (packet == null) {
+			getLogger().info("Hooking into NMS version dependant system...");
+			String p = getServer().getClass().getPackage().getName();
+			String version = p.substring(p.lastIndexOf('.') + 1);
+			getLogger().info("Version " + version + " found");
+			switch (version) {
+			/* Version 1.7.9 */
+				case "v1_7_R3":
+					packet = new Packet_V1_7_R3(this);
+					getLogger().info("Version " + version + " implemented!");
+					break;
+				/* Version 1.8 */
+				case "v1_8_R1":
+					packet = new Packet_V1_8_R1(this);
+					getLogger().info("Version " + version + " implemented!");
+					break;
+				/* Version 1.8.3 */
+				case "v1_8_R2":
+					packet = new Packet_V1_8_R2(this);
+					getLogger().info("Version " + version + " implemented!");
+					break;
+				/* Versions 1.8.4 to 1.8.8 */
+				case "v1_8_R3":
+					packet = new Packet_V1_8_R3(this);
+					getLogger().info("Version " + version + " implemented!");
+					break;
+				/* Unsupported version */
+				default:
+					// shut down plugin??
+					getLogger().info("Version " + version + " is not supported, shutting down");
+					Bukkit.getPluginManager().disablePlugin(this);
+					break;
+			}
 		}
 
 		this.log.info("[DeathCountdown] Database connected!");
@@ -190,5 +232,13 @@ public class Main extends JavaPlugin {
 		ResultSet result = this.sqlite.executeQuery("SELECT playername FROM DeathCountdownData ORDER BY time DESC;");
 		ArrayList<String> r = resultToArray(result, "playername");
 		return r;
+	}
+	
+	public SQLite getSQLite() {
+		return sqlite;
+	}
+	
+	public Packet getPacket() {
+		return packet;
 	}
 }
